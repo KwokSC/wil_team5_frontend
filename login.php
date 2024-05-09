@@ -1,24 +1,27 @@
 <?php
-require"check_login.php";
+require "check_login.php";
 
-    
+//make variable error_message
+$error_message = ""; 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
     $users = file("user_data.txt", FILE_IGNORE_NEW_LINES);
 
-    //loop through the file to find match
+    // Loop through the file to find a match
     foreach ($users as $user) {
         list($saved_username, $saved_password) = explode(", ", $user);
-        //if find go to homepage
+        // If a match is found, redirect to homepage
         if ($username === $saved_username && $password === $saved_password) {
             $_SESSION['username'] = $username;
             header("Location: homepage.php");
             exit;
         }
     }
-    echo "Invalid username or password."; 
+    // If no match is found, set an error message
+    $error_message = "Invalid username or password."; 
 }
 ?>
 
@@ -27,19 +30,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="register-login.css">
     <title>Login Page</title>
 </head>
 <body>
-    <h2>Login</h2>
     <form action="login.php" method="post">
+    <h2>Login</h2>
         <label for="username">Username:</label><br>
         <input type="text" id="username" name="username"><br>
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password"><br>
         <input type="submit" value="Login">
+        <p class="error-message"><?php echo $error_message; ?></p>
+        <p>Don't have an account? <a href="register.php">Register</a><p>
     </form>
-    <a href="register.html">
-        <button>Register</button>
-    </a>
+    
 </body>
 </html>

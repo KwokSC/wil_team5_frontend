@@ -1,0 +1,15 @@
+a{
+    background-color:#008CBA;
+    color: white;
+    border-radius: 100000px;
+    padding: 0.25rem 1em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-size: inherit;
+}
+
+.text{
+    text-align: center;
+    margin-top: 20vh;
+}
