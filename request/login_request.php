@@ -12,18 +12,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $conn = getDbConnection();
 
-    $stmt = $conn->prepare("SELECT password FROM user_info WHERE username = ?");
+    $stmt = $conn->prepare("SELECT password, level FROM user_info WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($stored_password);
+        $stmt->bind_result($stored_password, $stored_level);
         $stmt->fetch();
+
+        if ($stored_level == 0) {
+            $user_type = 'Normal user';
+        } elseif ($stored_level == 1) {
+            $user_type = 'Administrator';
+        } else {
+            $user_type = 'Unknown';
+        }
 
         // Verify password
         if ($password === $stored_password) {
-            echo json_encode(['status' => 'success', 'message' => 'login successfully']);
+            echo json_encode(['status' => 'success', 'message' => 'login successfully', 'level' => $user_type]);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'wrong password']);
         }
