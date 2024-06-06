@@ -25,7 +25,9 @@
             const password = document.getElementById('password').value;
 
             const xhr = new XMLHttpRequest();
-            xhr.open("POST", "login_request.php", true);
+
+            // Call the request function file to send SQL to AWS database
+            xhr.open("POST", "./request/login_request.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
             xhr.onreadystatechange = function () {
