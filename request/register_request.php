@@ -1,6 +1,7 @@
 <?php
 include '../config.php';
 
+session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -16,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("ss", $username, $password);
 
     if ($stmt->execute()) {
+        $_SESSION['username'] = $username;
         echo json_encode(['status' => 'success', 'message' => 'User registered successfully']);
     } else {
         echo json_encode(['status' => 'error', 'message' => 'User registration failed: ' . $stmt->error]);
