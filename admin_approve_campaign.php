@@ -51,7 +51,7 @@
                                 .then(response => response.json())
                                 .then(data => {
                                     if (data.status === 'success') {
-                                        alert("Withdraw the approval for " + campaign.campaign_id + " successfully.");
+                                        alert("Reject the campaign " + campaign.campaign_id + " successfully.");
                                     } else {
                                         alert("Failed to update status: " + data.message);
                                     }
