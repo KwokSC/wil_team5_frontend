@@ -17,7 +17,6 @@
         <input type="password" id="password" name="password"><br>
         <input type="submit" value="Login">
         <p class="error-message" id="message"></p>
-        <!-- <p id="level"> -->
         <p>Don't have an account? <a href="register.php">Register</a></p>
     </form>
     <script>
@@ -27,34 +26,35 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            const xhr = new XMLHttpRequest();
-
-            // Call the request function file to send SQL to AWS database
-            xhr.open("POST", "./request/login_request.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    const response = JSON.parse(xhr.responseText);
-                    //check level of user when login credential is recognised
-                    if(response.status === 'success'){
-                        if(response.level === 'Normal user') {
+            fetch('./request/login_request.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    'username': username,
+                    'password': password
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Check if login is successful
+                    if (data.status === 'success') {
+                        if (data.level === 'Normal user') {
                             window.location.href = 'user_homepage.php';
-                        }
-                        else if (response.level === 'Administrator'){
+                        } else if (data.level === 'Administrator') {
                             window.location.href = 'admin_homepage.php';
                         }
+                    } else {
+                        // Show error message
+                        document.getElementById('message').innerText = data.message;
                     }
-                    //show error message
-                    else{
-                        document.getElementById('message').innerText = response.message;
-                    }
-                    // document.getElementById('level').innerText = "The user level is: " + response.level;
-                }
-            };
-
-            xhr.send(`username=${username}&password=${password}`);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         });
+
     </script>
 </body>
 

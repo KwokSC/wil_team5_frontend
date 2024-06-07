@@ -3,6 +3,7 @@ include '../config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $campaignId = $_POST['campaignId'];
+    $status = $_POST['status'];
 
     if (empty($campaignId)) {
         echo json_encode(['status' => 'error', 'message' => 'campaign ID should not be empty']);
@@ -11,19 +12,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $conn = getDbConnection();
 
-    $stmt = $conn->prepare("UPDATE user_info SET status = 1 WHERE campaign_id = ?");
+    $stmt = $conn->prepare("UPDATE campaign_info SET status = ? WHERE campaign_id = ?");
 
     if (!$stmt) {
         echo json_encode(['status' => 'error', 'message' => 'Prepare statement failed: ' . $conn->error]);
         exit;
     }
 
-    $stmt->bind_param("s", $campaignId);
+    $stmt->bind_param("is", $status, $campaignId);
 
     if ($stmt->execute()) {
-        echo json_encode(['status' => 'success', 'message' => 'Approve campaign successfully']);
+        echo json_encode(['status' => 'success', 'message' => 'Change campaign status successfully']);
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Fail to approve campaign: ' . $stmt->error]);
+        echo json_encode(['status' => 'error', 'message' => 'Fail to change campaign status: ' . $stmt->error]);
     }
 
     // Close the database connection
