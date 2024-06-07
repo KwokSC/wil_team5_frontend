@@ -52,6 +52,7 @@
                                 .then(data => {
                                     if (data.status === 'success') {
                                         alert("Reject the campaign " + campaign.campaign_id + " successfully.");
+                                        location.reload();
                                     } else {
                                         alert("Failed to update status: " + data.message);
                                     }
