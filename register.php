@@ -1,24 +1,3 @@
-<?php
-require"check_login.php";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //get info
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-
-    //save in (a,b) format
-    $data = "$username, $password\n";
-
-    //put in user_data.txt
-    file_put_contents("user_data.txt", $data, FILE_APPEND);
-
-    //save username in a variable
-    $_SESSION['username'] = $username;
-    header("Location: homepage.php");
-    exit;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,15 +7,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Registration Page</title>
 </head>
 <body>
-<form action="register.php" method="post">
+<form id="register-form" action="register.php" method="post">
     <h2>Register</h2>
         <label for="username">Username:</label><br>
         <input type="text" id="username" name="username"><br>
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password"><br>
         <input type="submit" value="Register">
+        <p class="error-message" id="message"></p>
         <p>Already own an account? <a href="login.php">Log in</a></p>
     </form>
+
+    <script>
+        document.getElementById('register-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const xhr = new XMLHttpRequest();
+
+            // Call the request function file to send SQL to AWS database
+            xhr.open("POST", "./request/register_request.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    const response = JSON.parse(xhr.responseText);
+                    //check if register is successful
+                    if(response.status === 'success'){
+                        window.location.href = 'user_homepage.php';
+                    //show error message
+                    }else{
+                        document.getElementById('message').innerText = response.message;
+                    }
+            };
+
+            xhr.send(`username=${username}&password=${password}`);
+        });
+    </script>
     
 </body>
 </html>

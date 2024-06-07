@@ -1,6 +1,7 @@
 <?php
 include '../config.php';
 
+session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -31,7 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Verify password
         if ($password === $stored_password) {
-            echo json_encode(['status' => 'success', 'message' => 'login successfully', 'level' => $user_type]);
+            $_SESSION['username'] = $username;
+            echo json_encode(['status' => 'success', 'message' => 'login successfully', 'level' => $user_type]); 
         } else {
             echo json_encode(['status' => 'error', 'message' => 'wrong password']);
         }

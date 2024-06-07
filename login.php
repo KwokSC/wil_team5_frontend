@@ -16,10 +16,9 @@
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password"><br>
         <input type="submit" value="Login">
-        <p class="error-message" id="message">
-        <p id="level">
-        <p>Don't have an account? <a href="register.php">Register</a>
-        <p>
+        <p class="error-message" id="message"></p>
+        <!-- <p id="level"> -->
+        <p>Don't have an account? <a href="register.php">Register</a></p>
     </form>
     <script>
         document.getElementById('login-form').addEventListener('submit', function (event) {
@@ -37,8 +36,20 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     const response = JSON.parse(xhr.responseText);
-                    document.getElementById('message').innerText = response.message;
-                    document.getElementById('level').innerText = "The user level is: " + response.level;
+                    //check level of user when login credential is recognised
+                    if(response.status === 'success'){
+                        if(response.level === 'Normal user') {
+                            window.location.href = 'user_homepage.php';
+                        }
+                        else if (response.level === 'Administrator'){
+                            window.location.href = 'admin_homepage.php';
+                        }
+                    }
+                    //show error message
+                    else{
+                        document.getElementById('message').innerText = response.message;
+                    }
+                    // document.getElementById('level').innerText = "The user level is: " + response.level;
                 }
             };
 

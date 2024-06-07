@@ -11,15 +11,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $campaignId = generateUuid();
     $topic = $_POST['topic'];
     $summary = $_POST['summary'];
-    $picture = $_POST['picture'];
+    $file_name = $_FILES['picture']['name'];
+    $file_tmp = $_FILES['picture']['tmp_name'];
+    $upload_dir = 'image/';
+    $file_location = $upload_dir . $file_name;
+    move_uploaded_file($file_tmp, $file_location);
 
     $conn = getDbConnection();
 
     $stmt = $conn->prepare("INSERT INTO campaign_info(campaign_id, topic, summary, picture) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $campaignId, $topic, $summary, $picture);
+    $stmt->bind_param("ssss", $campaignId, $topic, $summary, $file_location);
 
     if ($stmt->execute()) {
-        echo json_encode(['status' => 'success', 'message' => 'User registered successfully']);
+        header("Refresh: 1; URL=user_homepage.php");
+        echo json_encode(['status' => 'success', 'message' => 'Post successfully']);
+        
     } else {
         echo json_encode(['status' => 'error', 'message' => 'User registration failed: ' . $stmt->error]);
     }
