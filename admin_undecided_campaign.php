@@ -13,6 +13,7 @@
     <h1>Campaign That Need to Be Approved</h1>
     <ul id="campaign-list">
     </ul>
+
     <script>
         // This is the script for loading all approved campaigns and add button click listener.
         document.addEventListener("DOMContentLoaded", function () {

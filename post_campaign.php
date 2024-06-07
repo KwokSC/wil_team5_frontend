@@ -22,5 +22,9 @@
     <input type="submit" value="Submit">
 </form>
 
+<script>
+    // TODO: Implement post campaign
+</script>
+
 </body>
 </html>
