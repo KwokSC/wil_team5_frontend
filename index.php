@@ -30,7 +30,7 @@ if (isset($_SESSION['username'])) {
 
 <head>
     <title>Homepage</title>
-    <link rel="stylesheet" type="text/css" href="homepage.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 
 <body>
