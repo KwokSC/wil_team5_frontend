@@ -32,10 +32,10 @@
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: {
+                body: new URLSearchParams({
                     'username': username,
                     'password': password
-                }
+                })
             })
                 .then(response => response.json())
                 .then(data => {

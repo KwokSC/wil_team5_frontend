@@ -23,11 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("ssss", $campaignId, $topic, $summary, $file_location);
 
     if ($stmt->execute()) {
-        header("Refresh: 1; URL=user_homepage.php");
         echo json_encode(['status' => 'success', 'message' => 'Post successfully']);
         
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'User registration failed: ' . $stmt->error]);
+        echo json_encode(['status' => 'error', 'message' => 'Post campaign failed: ' . $stmt->error]);
     }
 
     // Close the database connection

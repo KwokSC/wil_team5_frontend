@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $conn = getDbConnection();
 
-    $stmt = $conn->prepare("INSERT INTO user_info(username, password) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO user_info(username, password) VALUES (?, ?)");
     $stmt->bind_param("ss", $username, $password);
 
     if ($stmt->execute()) {
