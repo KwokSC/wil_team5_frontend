@@ -10,7 +10,7 @@
     <a href="admin_homepage.php">Back</a>
 
     <h1>Approved Campaign</h1>
-
+    <!-- oh all the campaign that have status of approve -->
     <!-- give all the campaign that have status of approve -->
     <ul id="campaign-list">
     </ul>
