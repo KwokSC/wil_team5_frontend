@@ -18,7 +18,7 @@ if (isset($_SESSION['username'])) {
 <html>
 <head>
     <title>Homepage</title>
-    <link rel="stylesheet" type="text/css" href="homepage.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
     <header>
@@ -26,7 +26,7 @@ if (isset($_SESSION['username'])) {
     </header>
     <div class="button-container">
         <a href="post_campaign.php">Post Campaign</a>
-        <a href="homepage.php">See All Campaigns</a>
+        <a href="index.php">See All Campaigns</a>
     </div>
 </body>
 </html>

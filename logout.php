@@ -6,12 +6,12 @@ session_unset();
 session_destroy();
 
 // Redirect to the homepage after 5 seconds
-header("Refresh: 5; URL=homepage.php");
+header("Refresh: 5; URL=index.php");
 
 // Display message and exit
 echo '<div class="text">';
 echo '<p>You have logged out. If you are not redirected in 5 seconds, please click the button below.</p>';
-echo '<a href="homepage.php">Go to Homepage</a>';
+echo '<a href="index.php">Go to Homepage</a>';
 echo '</div>';
 ?>
 

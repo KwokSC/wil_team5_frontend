@@ -13,7 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $summary = $_POST['summary'];
     $file_name = $_FILES['picture']['name'];
     $file_tmp = $_FILES['picture']['tmp_name'];
-    $upload_dir = 'image/';
+    $upload_dir = '../image/';
+    chmod($upload_dir, 0755);
     $file_location = $upload_dir . $file_name;
     move_uploaded_file($file_tmp, $file_location);
 
@@ -24,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($stmt->execute()) {
         echo json_encode(['status' => 'success', 'message' => 'Post successfully']);
-        
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Post campaign failed: ' . $stmt->error]);
     }
