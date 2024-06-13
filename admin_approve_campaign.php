@@ -1,15 +1,37 @@
+<?php
+session_start();
+
+// Check if the user is logged in
+if (isset($_SESSION['username'])) {
+    // If user is logged in show username
+    $username = $_SESSION['username'];
+    echo '
+    <nav class="nav nav-top">
+        <ul class="nav-list">
+            <li>Welcome, ' . $username . '!</li>
+            <li><a href="admin_homepage.php">Back</a></li>
+            <li><a href="logout.php">Logout</a></li>
+        </ul>
+    </nav>';
+} else {
+    header("Location: index.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Approved Campaign</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 
 <body>
+    <header>
+        <h1>Approved Campaign</h1>
+    </header>
 
-    <a href="admin_homepage.php">Back</a>
-
-    <h1>Approved Campaign</h1>
     <!-- oh all the campaign that have status of approve -->
     <!-- give all the campaign that have status of approve -->
     <ul id="campaign-list">
@@ -29,9 +51,11 @@
                     // After obtain the result, create <li> elements and add them to the <ul>
                     campaigns.forEach(campaign => {
                         const li = document.createElement("li");
-                        li.innerHTML = `<h2>${campaign.campaign_id}</h2>
+                        li.innerHTML = `<div class="text">
+                                        <p>ID: ${campaign.campaign_id}</p>
                                         <h2>${campaign.topic}</h2>
                                         <p>${campaign.summary}</p>
+                                        </div>
                                         <img src="${campaign.picture}" alt="${campaign.topic}">
                                         <button id="reconsider">Reconsider</button>`;
 

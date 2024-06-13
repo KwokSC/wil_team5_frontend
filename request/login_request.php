@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Verify password
         if ($password === $stored_password) {
             $_SESSION['username'] = $username;
+            $_SESSION['level'] = $stored_level;
             echo json_encode(['status' => 'success', 'message' => 'login successfully', 'level' => $user_type]); 
         } else {
             echo json_encode(['status' => 'error', 'message' => 'wrong password']);

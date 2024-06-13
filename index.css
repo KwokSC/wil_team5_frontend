@@ -1,86 +1,168 @@
-
-.nav{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    background-color: #1b2522;
-    padding: 0.5rem 1rem;
-    height: 50px; 
-}
-.nav-top{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-}
-
-.nav-list{
-    margin: 0;
-    padding: 0;
-    display: flex;
-    list-style-type: none;
-    color: red;
-}
-
-.nav-list a{
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #1b2522;
+  padding: 0.5rem 1rem;
+  height: 50px;
+  a {
     text-decoration: none;
     margin-left: 1rem;
     color: white;
+  }
+  a:hover {
+    color: #ccc;
+  }
+}
+.nav-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
 }
 
-.nav-list a:hover{
-    color: #CCC;
+.nav-list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style-type: none;
+  color: red;
 }
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  text-align: center;
 }
 header {
-    margin-top: 80px;
-}
-.campaign-item {
-margin-top: 20px;
-display: flex;
-align-items: center;
-justify-content: center;
-max-width: 1000px; 
-margin-left: auto; 
-margin-right: auto;
-border: 2px solid #1b2522;
+  margin-top: 80px;
 }
 
-.campaign-item img,
-.campaign-item-text {
-flex: 1; 
+#campaign-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  width: 100%;
+  overflow: scroll;
+  li {
+    width: max(80%, 500px);
+    height: fit-content;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #1b2522;
+    .text {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      flex: 1;
+      p, h2{
+        text-align: start;
+        margin: 0;
+      }
+    }
+    img {
+      max-width: 250px;
+      max-height: 200px;
+      flex: 1;
+    }
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    button{
+      margin-inline: 5px;
+      min-width: 80px;
+      background-color: transparent;
+      color: black;
+      border: 1px solid grey;
+      border-radius: 5px;
+      width: fit-content;
+      margin-block: 5px;
+      text-decoration: none;
+      text-transform: capitalize;
+      transition: 0.5s;
+      padding: 5px;
+    }
+    button:hover {
+      background-color: grey;
+      color: white;
+    }
+  }
 }
-
-.campaign-item-text {
-padding: 0 20px; 
-text-align: left;
-}
-
-.learn-more a{
-    float:right;
-    background-color: #008CBA;
-    color: white;
-    border-radius: 100000px;
-    padding: 0.25rem 1em;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-}
-
 
 footer {
-    margin: 0;
-    padding: 0;
-    margin-top: 20px;
-}
-img{
-    height: 320px;
-    width: 480px;
+  position: fixed;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  margin-top: 20px;
 }
 
+.button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 0.5;
+  a, button{
+    background-color: transparent;
+    color: black;
+    border: 1px solid grey;
+    border-radius: 5px;
+    width: 80%;
+    margin-block: 5px;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: 0.5s;
+    padding: 5px;
+  }
+  a:hover, button:hover {
+    background-color: grey;
+    color: white;
+  }
+}
+
+#post-campaign-form{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  label, textarea, input{
+    width: 80%;
+    text-align: start;
+  }
+  label{
+    margin-bottom: 5px;
+  }
+  #summary{
+    height: 100px;
+    resize: none;
+  }
+  button{
+    background-color: transparent;
+    color: black;
+    border: 1px solid grey;
+    border-radius: 5px;
+    width: 150px;
+    margin-block: 5px;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: 0.5s;
+    padding: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: grey;
+    color: white;
+  }
+}

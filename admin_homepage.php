@@ -12,13 +12,16 @@ if (isset($_SESSION['username'])) {
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>';
+}else{
+    header("Location: index.php");
+    exit();
 }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Homepage</title>
-    <link rel="stylesheet" type="text/css" href="homepage.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
     <header>

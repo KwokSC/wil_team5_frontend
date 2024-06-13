@@ -1,16 +1,39 @@
+<?php
+session_start();
+
+// Check if the user is logged in
+if (isset($_SESSION['username'])) {
+    // If user is logged in show username
+    $username = $_SESSION['username'];
+    echo '
+    <nav class="nav nav-top">
+        <ul class="nav-list">
+            <li>Welcome, ' . $username . '!</li>
+            <li><a href="admin_homepage.php">Back</a></li>
+            <li><a href="logout.php">Logout</a></li>
+        </ul>
+    </nav>';
+} else {
+    header("Location: index.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>All Post Campaign</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 
 <body>
 
-    <a href="admin_homepage.php">Back</a>
-
     <!-- give all the campaign that have status of unset -->
-    <h1>Campaign That Need to Be Approved</h1>
+    <header>
+        <h1>Campaign Waitlist</h1>
+    </header>
+
     <ul id="campaign-list">
     </ul>
 
@@ -28,12 +51,16 @@
                     // After obtain the result, create <li> elements and add them to the <ul>
                     campaigns.forEach(campaign => {
                         const li = document.createElement("li");
-                        li.innerHTML = `<h2>${campaign.campaign_id}</h2>
+                        li.innerHTML = `<div class="text">
+                                        <p>ID: ${campaign.campaign_id}</p>
                                         <h2>${campaign.topic}</h2>
                                         <p>${campaign.summary}</p>
+                                        </div>
                                         <img src="${campaign.picture}" alt="${campaign.topic}">
+                                        <div class="button-container">
                                         <button id="approve">Approve</button>
-                                        <button id="reject">Reject</button>`;
+                                        <button id="reject">Reject</button>
+                                        </div>`;
 
                         // Here to obtain the approve button element and add click listener
                         const approveBtn = li.querySelector("#approve");

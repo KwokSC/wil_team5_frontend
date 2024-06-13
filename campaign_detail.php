@@ -10,8 +10,8 @@ if (isset($_SESSION['username'])) {
     echo '
     <nav class="nav nav-top">
         <ul class="nav-list">
-            <li>Welcome, ' . $username . '!</li>
             <li><a href="' . $dashboardLink . '">Dashboard</a></li>
+            <li>Welcome, ' . $username . '!</li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>';
@@ -39,35 +39,19 @@ if (isset($_SESSION['username'])) {
     <header>
         <h1>Campaign</h1>
     </header>
-    <ul id="campaign-list">
-    </ul>
-
     <script>
         // This is the script for loading all approved campaigns and add button click listener.
         document.addEventListener("DOMContentLoaded", function () {
             // send GET request to obtain all approved campaigns
-            fetch("./request/list_campaign_request.php?status=1", {
+            fetch(`./request/get_campaign_by_id.php?campaignId=`, {
                 method: 'GET'
             })
                 .then(response => response.json())
                 .then(data => {
-                    const campaignList = document.getElementById("campaign-list");
-                    const campaigns = data.campaigns;
-                    // After obtain the result, create <li> elements and add them to the <ul>
-                    campaigns.forEach(campaign => {
-                        const li = document.createElement("li");
-                        li.innerHTML = `<div class="text">
-                                        <h2>${campaign.topic}</h2>
-                                        <p>${campaign.summary}</p>
-                                        </div>
-                                        <img src="${campaign.picture}" alt="${campaign.topic}">`;
-                        campaignList.appendChild(li);
-                    });
+                    console.log(data);
                 })
-                .catch(error => console.error("Error fetching data:", error));
-        });
+        })
     </script>
-
 </body>
 <footer>
     <nav class="nav"></nav>
