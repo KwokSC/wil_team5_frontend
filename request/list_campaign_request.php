@@ -2,13 +2,13 @@
 include '../config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $status = $_GET['status'];
+    $status = isset($_GET['status']) ? $_GET['status'] : null;
 
-    if (empty($status)) {
+    if ($status === null || $status === '') {
         echo json_encode(['status' => 'error', 'message' => 'status should not be empty']);
         exit;
     }
-
+    
     $conn = getDbConnection();
 
     $stmt = $conn->prepare("SELECT * FROM campaign_info WHERE status = ?");
@@ -21,10 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $stmt->bind_param("i", $status);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     $campaigns = array();
     if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) {
             $campaigns[] = $row;
         }
     }
