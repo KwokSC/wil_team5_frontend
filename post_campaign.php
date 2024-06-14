@@ -8,7 +8,8 @@ if (isset($_SESSION['username'])) {
     echo '
     <nav class="nav nav-top">
         <ul class="nav-list">
-            <li>Welcome, ' . $username . '!</li>
+            <li>Welcome, ' . $username . '!</li
+            <li><a href="user_homepage.php">Back</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>';

@@ -69,7 +69,7 @@ if (isset($_SESSION['username'])) {
                                 },
                                 body: new URLSearchParams({
                                     'campaignId': campaign.campaign_id,
-                                    'status': 0
+                                    'status': -1
                                 })
                             })
                                 .then(response => response.json())
